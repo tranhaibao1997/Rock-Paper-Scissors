@@ -22,13 +22,13 @@ function App() {
   function getMatchResult(playerState, AIresult) {
     let result = ""
     if (playerState === "rock") {
-      result = AIresult === "scissors" ? "Victory!" : "Defeat!";
+      result = AIresult === "scissors" ? "Victory" : "Defeat";
     }
     if (playerState === "paper") {
-      result = AIresult === "rock" ? "Victory!" : "Defeat!";
+      result = AIresult === "rock" ? "Victory" : "Defeat";
     }
     if (playerState === "scissors") {
-      result = AIresult === "paper" ? "Victory!" : "Defeat!";
+      result = AIresult === "paper" ? "Victory" : "Defeat";
     }
 
     if (playerState === AIresult) result = "Tie game!";
@@ -54,12 +54,12 @@ function App() {
 
   // function showWinStreak(result) {
 
-  //   if (result == "Victory!") {
+  //   if (result == "Victory") {
   //     playerStreak = playerStreak + 1;
   //     AIResult = 0;
   //     console.log(playerStreak, AIStreak, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
   //   }
-  //   else if (result == "Defeat!") {
+  //   else if (result == "Defeat") {
   //     playerStreak = 0;
   //     AIResult += 1
   //   }
@@ -106,10 +106,10 @@ function App() {
     }
   }
   function AIResult() {
-    if (prompt === "Victory!") {
+    if (prompt === "Victory") {
       return "lose"
     }
-    else if (prompt === "Defeat!") {
+    else if (prompt === "Defeat") {
       return "win"
     }
     else if (prompt === "Tie game!") {
@@ -120,10 +120,10 @@ function App() {
     }
   }
   function PlayerResult() {
-    if (prompt === "Victory!") {
+    if (prompt === "Victory") {
       return "win"
     }
-    else if (prompt === "Defeat!") {
+    else if (prompt === "Defeat") {
       return "lose"
     }
     else if (prompt === "Tie game!") {
@@ -157,35 +157,56 @@ function App() {
       "https://opengameart.org/sites/default/files/forum-attachments/very%20simple%20rock_0.png",
     paper: "http://pngimagesfree.com/Paper/Thumb/blank-note-paper-free-clipa.png",
     scissors: "http://www.pngmart.com/files/1/Scissors-PNG-Pic.png",
-    question: "https://pngimg.com/uploads/question_mark/question_mark_PNG134.png"
+    question: "https://media.giphy.com/media/jTZVegIrdLCCY/giphy.gif"
   };
   return (
 
+    
+
+
     <div className="App">
-      <div className="container">
+
+
+      {
+        user == null ? <div className="form__group">
+        <input type="text"  onChange={(e) => getInputChange(e)} onKeyDown={(e) => keyPress(e)} className="form__input" id="name" placeholder="Player name" required="" />
+        <label for="name" class="form__label">Player Name</label>
+      </div> : <div className="container">
         <div className="row mb-3">
           <div className="col-md-8 themed-grid-col">
-
-            {
-              user == null ? <div><input onChange={(e) => getInputChange(e)} onKeyDown={(e) => keyPress(e)} type="text" placeholder="input player name" ></input>
-
-              </div> : <h1>{user}</h1>
-            }
-
             <ChoiceCard title={user} winner={PlayerResult()} imgUrl={ImgPlayerChoose()}></ChoiceCard>
-            <h1>{prompt}</h1>
+            <h1 className={prompt}>{prompt}</h1>
             {
-              isReady ?<div className="container">
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => Shoot("rock")}>Rock</button>
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => Shoot("paper")}>Paper</button>
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => Shoot("scissors")}>Scissors</button>
-            </div> :<button onClick={playGame}>Start</button>
+              isReady ?<ul className="btn-section"> 
+              <li>
+                <a href="#" onClick={()=>Shoot("rock")}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span class="fa fa-facebook">ROCK</span>
+                </a> 
+              </li>
+              <li>
+                <a href="#"  onClick={()=>Shoot("paper")}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span class="fa fa-twitter">PAPER</span>
+                </a> 
+              </li>
+              <li>
+                <a href="#"  onClick={()=>Shoot("scissors")}>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span class="fa fa-instagram">SCISSORS</span>
+                </a> 
+              </li>
+            
+            </ul>   :<div id="btn" onClick={playGame}><span className="noselect">Start Game</span><div id="circle"></div></div>
             }
           
             <ChoiceCard title="Computer" winner={AIResult()} imgUrl={ImgAIChoose()}></ChoiceCard>
@@ -208,6 +229,9 @@ function App() {
           </div>
         </div>
       </div>
+
+      }
+     
     </div>
 
 
