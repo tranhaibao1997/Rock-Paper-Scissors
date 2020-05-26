@@ -44,8 +44,11 @@ function App() {
     AIResult(result)
     setAIState(AIchoose)
     setPlayerState(playerState)
-    // showWinStreak(result)
-    setGameHistory([...gameHistory, result])
+    let matchInfo={
+      "player":user,
+      "result":result
+    }
+    setGameHistory([...gameHistory, matchInfo])
     console.log(gameHistory.length, "length")
 
   }
@@ -220,7 +223,9 @@ function App() {
 
                 gameHistory.map((elm, index) => {
                   return <li>
-                    <p>{elm}</p>
+                    <p>Round:{index}</p>
+                    <p>{elm.player}</p>
+                <p>{elm.result}</p>
                   </li>
                 })
 
