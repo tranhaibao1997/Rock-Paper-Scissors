@@ -233,7 +233,7 @@ function App() {
               {
 
                 gameHistory.map((elm, index) => {
-                  return <li>
+                  return <li className={elm.result}>
                     <p>Round:{index}</p>
                     <p>{elm.player}</p>
                 <p>{elm.result}</p>
