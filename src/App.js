@@ -4,15 +4,17 @@ import './App.css';
 import ChoiceCard from './components/ChoiceCard'
 // import ChoiceCardClass from './components/ChoiceCardClass';
 import History from './components/History'
-
+let playerStreak = 0;
 function App() {
 
 
+  let AIStreak = 0;
   const [prompt, setPrompt] = useState("LET'S GET STARTED")
   const [playerState, setPlayerState] = useState("StartImg")
   const [AIState, setAIState] = useState("StartImg")
   const [gameHistory, setGameHistory] = useState([])
-  const [message, setMess] = useState("")
+  const [message, setMess] = useState("Không có gì")
+  const [user, setUser] = useState(null)
 
   function getAIChoose() {
     let array = ["rock", "paper", "scissors"]
@@ -44,17 +46,39 @@ function App() {
     AIResult(result)
     setAIState(AIchoose)
     setPlayerState(playerState)
-    let matchInfo = {
-      "playerChoice": playerState,
-      "AIChoice": AIchoose,
-      "Result": result
-    }
-    setGameHistory([...gameHistory, matchInfo])
+    showWinStreak(result)
+    setGameHistory([...gameHistory, result])
+    console.log(gameHistory.length, "length")
 
   }
   console.log(gameHistory)
+  console.log(message)
+
+  function showWinStreak(result) {
+
+    if (result == "Victory!") {
+      playerStreak = playerStreak + 1;
+      AIResult = 0;
+      console.log(playerStreak, AIStreak, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    }
+    else if (result == "Defeat!") {
+      playerStreak = 0;
+      AIResult += 1
+    }
+
+    else {
+      AIResult = 0
+      PlayerResult = 0
+    }
+    if (playerStreak == 2) {
+      setMess("Player is on winstreak")
+    }
+    else if (AIStreak == 2) {
+      setMess("AI is on winstreak")
+    }
 
 
+  }
   function ImgPlayerChoose() {
     if (playerState === "rock") {
       return choices.rock
@@ -112,6 +136,19 @@ function App() {
     }
   }
 
+  let name = ""
+  function getInputChange(e) {
+
+    name = e.target.value
+
+
+  }
+  function keyPress(e) {
+    if (e.keyCode == 13) {
+      setUser(name)
+    }
+  }
+
 
 
 
@@ -129,9 +166,12 @@ function App() {
       <div className="container">
         <div className="row mb-3">
           <div className="col-md-8 themed-grid-col">
-            {/* 
-    <ChoiceCardClass title="you" winner={false} imgUrl={choices.rock}></ChoiceCardClass>
-    <ChoiceCardClass  title="Computer" winner={true} imgUrl={choices.paper}></ChoiceCardClass> */}
+
+            {
+              user == null ? <div><input onChange={(e) => getInputChange(e)} onKeyDown={(e) => keyPress(e)} type="text" placeholder="input player name" ></input>
+
+              </div> : <h1>{user}</h1>
+            }
 
             <ChoiceCard title="you" winner={PlayerResult()} imgUrl={ImgPlayerChoose()}></ChoiceCard>
             <h1>{prompt}</h1>
@@ -164,7 +204,9 @@ function App() {
               {
 
                 gameHistory.map((elm, index) => {
-                  return <History elm={elm} index={index}></History>
+                  return <li>
+                    <p>{elm}</p>
+                  </li>
                 })
 
               }
