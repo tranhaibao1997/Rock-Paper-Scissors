@@ -7,6 +7,9 @@ import ChoiceCard from './components/ChoiceCard'
 function App() {
 
 
+  let [playerWinStreak,setPlayerWinStreak]=useState(0)
+  let [AIWinStreak,setAIWinStreak]=useState(0)
+  const [message,setMess]=useState("")
   const [isReady,setReady]=useState(false)
   const [prompt, setPrompt] = useState("LET'S GET STARTED")
   const [playerState, setPlayerState] = useState("StartImg")
@@ -44,39 +47,43 @@ function App() {
     AIResult(result)
     setAIState(AIchoose)
     setPlayerState(playerState)
+  
     let matchInfo={
       "player":user,
       "result":result
     }
     setGameHistory([...gameHistory, matchInfo])
-    console.log(gameHistory.length, "length")
+    showWinStreak(result)
 
   }
   console.log(gameHistory)
   // console.log(message)
 
-  // function showWinStreak(result) {
+  function showWinStreak(result) {
 
-  //   if (result == "Victory") {
-  //     playerStreak = playerStreak + 1;
-  //     AIResult = 0;
-  //     console.log(playerStreak, AIStreak, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-  //   }
-  //   else if (result == "Defeat") {
-  //     playerStreak = 0;
-  //     AIResult += 1
-  //   }
+    if (result === "Victory") {
+      let emp=playerWinStreak+1
+      setPlayerWinStreak(emp)
+      setAIWinStreak(0)
+      if (playerWinStreak > 1) {
+        setMess("Player is on winstreak")
+      }
+    }
+    else if (result === "Defeat") {
+      setPlayerWinStreak(0)
+      let emp=AIWinStreak+1
+      setAIWinStreak(emp)
+      if (AIWinStreak > 1) {
+        setMess("AI is on winstreak")
+      }
+    }
 
-  //   else {
-  //     AIResult = 0
-  //     PlayerResult = 0
-  //   }
-  //   if (playerStreak == 2) {
-  //     setMess("Player is on winstreak")
-  //   }
-  //   else if (AIStreak == 2) {
-  //     setMess("AI is on winstreak")
-  //   }
+    else if(result==="Tie game!") {
+      setMess("")
+    }
+  }
+  console.log(playerWinStreak)
+
 
 
   // }
@@ -182,6 +189,7 @@ function App() {
           <div className="col-md-8 themed-grid-col">
             <ChoiceCard title={user} winner={PlayerResult()} imgUrl={ImgPlayerChoose()}></ChoiceCard>
             <h1 className={prompt}>{prompt}</h1>
+            <h1>{message}</h1>
             {
               isReady ?<ul className="btn-section"> 
               <li>
@@ -247,4 +255,5 @@ function App() {
   );
 }
 
-export default App;
+
+export default App
