@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ChoiceCard from './components/ChoiceCard'
 // import ChoiceCardClass from './components/ChoiceCardClass';
-import History from './components/History'
-let playerStreak = 0;
+
 function App() {
 
 
-  let AIStreak = 0;
+  const [isReady,setReady]=useState(false)
   const [prompt, setPrompt] = useState("LET'S GET STARTED")
   const [playerState, setPlayerState] = useState("StartImg")
   const [AIState, setAIState] = useState("StartImg")
   const [gameHistory, setGameHistory] = useState([])
-  const [message, setMess] = useState("Không có gì")
   const [user, setUser] = useState(null)
 
   function getAIChoose() {
@@ -46,39 +44,39 @@ function App() {
     AIResult(result)
     setAIState(AIchoose)
     setPlayerState(playerState)
-    showWinStreak(result)
+    // showWinStreak(result)
     setGameHistory([...gameHistory, result])
     console.log(gameHistory.length, "length")
 
   }
   console.log(gameHistory)
-  console.log(message)
+  // console.log(message)
 
-  function showWinStreak(result) {
+  // function showWinStreak(result) {
 
-    if (result == "Victory!") {
-      playerStreak = playerStreak + 1;
-      AIResult = 0;
-      console.log(playerStreak, AIStreak, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    }
-    else if (result == "Defeat!") {
-      playerStreak = 0;
-      AIResult += 1
-    }
+  //   if (result == "Victory!") {
+  //     playerStreak = playerStreak + 1;
+  //     AIResult = 0;
+  //     console.log(playerStreak, AIStreak, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+  //   }
+  //   else if (result == "Defeat!") {
+  //     playerStreak = 0;
+  //     AIResult += 1
+  //   }
 
-    else {
-      AIResult = 0
-      PlayerResult = 0
-    }
-    if (playerStreak == 2) {
-      setMess("Player is on winstreak")
-    }
-    else if (AIStreak == 2) {
-      setMess("AI is on winstreak")
-    }
+  //   else {
+  //     AIResult = 0
+  //     PlayerResult = 0
+  //   }
+  //   if (playerStreak == 2) {
+  //     setMess("Player is on winstreak")
+  //   }
+  //   else if (AIStreak == 2) {
+  //     setMess("AI is on winstreak")
+  //   }
 
 
-  }
+  // }
   function ImgPlayerChoose() {
     if (playerState === "rock") {
       return choices.rock
@@ -149,11 +147,12 @@ function App() {
     }
   }
 
-
-
-
-
-  const choices = {
+  function playGame()
+  {
+    console.log("aaaaaa")
+    setReady(true)
+  }
+   const choices = {
     rock:
       "https://opengameart.org/sites/default/files/forum-attachments/very%20simple%20rock_0.png",
     paper: "http://pngimagesfree.com/Paper/Thumb/blank-note-paper-free-clipa.png",
@@ -173,27 +172,22 @@ function App() {
               </div> : <h1>{user}</h1>
             }
 
-            <ChoiceCard title="you" winner={PlayerResult()} imgUrl={ImgPlayerChoose()}></ChoiceCard>
+            <ChoiceCard title={user} winner={PlayerResult()} imgUrl={ImgPlayerChoose()}></ChoiceCard>
             <h1>{prompt}</h1>
-            <h1>{message}</h1>
-            <div className="container">
+            {
+              isReady ?<div className="container">
               <button
                 className="btn btn-success btn-lg"
-                onClick={() => Shoot("rock")}>
-                Rock</button>
+                onClick={() => Shoot("rock")}>Rock</button>
               <button
                 className="btn btn-success btn-lg"
-                onClick={() => Shoot("paper")}
-              >
-                Paper
-  </button>
+                onClick={() => Shoot("paper")}>Paper</button>
               <button
                 className="btn btn-success btn-lg"
-                onClick={() => Shoot("scissors")}
-              >
-                Scissors
-  </button>
-            </div>
+                onClick={() => Shoot("scissors")}>Scissors</button>
+            </div> :<button onClick={playGame}>Start</button>
+            }
+          
             <ChoiceCard title="Computer" winner={AIResult()} imgUrl={ImgAIChoose()}></ChoiceCard>
 
 
