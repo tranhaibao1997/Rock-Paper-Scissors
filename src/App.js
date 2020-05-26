@@ -171,7 +171,10 @@ function App() {
 
 
       {
-        user == null ? <div className="form__group">
+        user == null ? 
+      
+        <div className="form__group">
+            <h1>Please Input Player Name</h1>
         <input type="text"  onChange={(e) => getInputChange(e)} onKeyDown={(e) => keyPress(e)} className="form__input" id="name" placeholder="Player name" required="" />
         <label for="name" class="form__label">Player Name</label>
       </div> : <div className="container">
