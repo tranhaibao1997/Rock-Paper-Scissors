@@ -32,12 +32,39 @@ h1 {
     font-size: 50px;
 }
 
-.winner {
+.win {
     color: green;
     border: 10px solid green;
 }
 
-.loser {
+.lose {
     color: red;
     border: 10px solid red;
+}
+
+.notStarted h3 {
+    display: none;
+}
+
+.tie {
+    border: 10px solid gray;
+    color: gray
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 100%; */
+    justify-content: space-between;
+}
+
+li {
+    padding: 30px;
+    background-color: gainsboro;
+    border-radius: 20px;
+    width: 40%;
+    margin-right: 30px;
+    margin-bottom: 30px;
 }
