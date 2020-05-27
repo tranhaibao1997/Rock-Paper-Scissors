@@ -164,9 +164,9 @@ function App() {
   }
    const choices = {
     rock:
-      "https://opengameart.org/sites/default/files/forum-attachments/very%20simple%20rock_0.png",
-    paper: "http://pngimagesfree.com/Paper/Thumb/blank-note-paper-free-clipa.png",
-    scissors: "http://www.pngmart.com/files/1/Scissors-PNG-Pic.png",
+      "https://media.giphy.com/media/nfAMS5TUUgw9i/giphy.gif",
+    paper: "https://media.giphy.com/media/ozf26DV8FqaCpkYt6n/giphy.gif",
+    scissors: "https://media.giphy.com/media/qv4VUkDFt5GNO/giphy.gif",
     question: "https://media.giphy.com/media/jTZVegIrdLCCY/giphy.gif"
   };
   return (
@@ -198,7 +198,7 @@ function App() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span class="fa fa-facebook">ROCK</span>
+                  <span ><i class="fas fa-hand-rock"></i></span>
                 </a> 
               </li>
               <li>
@@ -207,7 +207,7 @@ function App() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span class="fa fa-twitter">PAPER</span>
+                  <span ><i class="fas fa-sticky-note"></i></span>
                 </a> 
               </li>
               <li>
@@ -216,7 +216,7 @@ function App() {
                   <span></span>
                   <span></span>
                   <span></span>
-                  <span class="fa fa-instagram">SCISSORS</span>
+                  <span class="fas fa-cut"></span>
                 </a> 
               </li>
             
